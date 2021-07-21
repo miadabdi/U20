@@ -49,7 +49,7 @@ exports.createSendToken = (res, user, statusCode, message = undefined) => {
 
 exports.signup = CatchAsync(async(req, res, next) => {
     // test if user was created with this email but isActive is set to false (account was deleted)
-    const user = await UserModel.findOne({ email: req.body.email }).select('+isActive');
+    let user = await UserModel.findOne({ email: req.body.email }).select('+isActive');
 
     // if the user exists and isActive(was deleted), then we grant access to reactivate it
     if(user && !user.isActive) {
